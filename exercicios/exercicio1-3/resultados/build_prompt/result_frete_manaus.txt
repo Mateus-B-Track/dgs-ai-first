@@ -1,0 +1,14 @@
+## DOCUMENTAÇÃO RECUPERADA
+
+--- Chunk 1 | Arquivo: PROC-042-frete-especial-v1.md | Seção: 1. Objetivo ---
+## 1. Objetivo
+
+Definir a fórmula e os parâmetros para cálculo de frete especial aplicável a cargas com peso acima de 500kg.
+
+## PERGUNTA DO ATENDENTE
+
+Frete para 600kg para Manaus?
+============================================================
+
+Total de caracteres: 2885
+Estimativa de tokens: ~721

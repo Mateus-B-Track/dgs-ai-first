@@ -1,0 +1,38 @@
+Testes feitos com o system prompt v2, modelo Claude Sonnet 4.6 - Médio.
+
+Qual o prazo de devolução para carga perigosa?
+
+Cargas perigosas (classes 1 a 6 da ANTT) não são elegíveis para devolução conforme a política vigente.
+
+Fonte: POL-001, seção 3.2
+Trecho relevante: "Mercadorias podem ser devolvidas em até 7 dias úteis após o recebimento, exceto cargas classificadas como perigosas (classes 1 a 6 da ANTT)."
+
+⚠️ Atenção: A documentação disponível não prevê nenhum prazo ou procedimento alternativo para devolução de cargas perigosas — a exceção é apresentada de forma absoluta, sem condições especiais. Caso o cliente insista na solicitação, recomendo escalar para o supervisor, pois pode haver tratativas específicas não contempladas nos chunks disponíveis nesta sessão.
+
+----------------
+
+Meu cliente é Gold, qual o SLA de resolução?
+
+Clientes Gold têm prazo de resolução de até 24 horas.
+
+Fonte: Tabela SLA-2024
+Trecho relevante: "Cliente Gold — resposta em até 2h, resolução em até 24h."
+
+ℹ️ Complemento: Além do prazo de resolução, o cliente Gold também possui tempo de resposta inicial de até 2 horas, caso essa informação seja útil no atendimento.
+
+----------------
+
+Quanto custa o frete para 600kg para Manaus?
+
+O frete especial para 600kg com destino a Manaus utiliza o multiplicador regional de 1,8 (Região Norte), aplicado sobre o valor base. No entanto, não é possível informar o valor final sem conhecer o valor base do frete.
+
+Fonte: PROC-042-v2, seção 2
+Trecho relevante: "Frete especial para cargas acima de 500kg: valor base × multiplicador regional. Região Norte: 1.8."
+
+⚠️ Atenção — Informação incompleta: A documentação fornece o multiplicador regional (1,8), mas não especifica o valor base a ser utilizado no cálculo. Antes de repassar o valor ao cliente, é necessário:
+
+Verificar o valor base do frete nas tabelas de precificação da empresa
+Aplicar a fórmula: valor base × 1,8
+Somente então informar o valor final ao cliente
+
+Recomendo consultar o setor comercial ou a tabela de valores base antes de prosseguir com a cotação.

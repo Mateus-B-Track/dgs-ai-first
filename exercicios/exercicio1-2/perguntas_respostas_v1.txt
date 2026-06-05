@@ -1,0 +1,35 @@
+Testes feitos com o system prompt v1, modelo Claude Sonnet 4.6 - Médio.
+
+P: Qual o prazo de devolução para carga perigosa?
+
+R: Cargas perigosas não podem ser devolvidas pelo processo padrão descrito na documentação disponível.
+
+Fonte: POL-001, seção 3.2
+Trecho relevante: "Mercadorias podem ser devolvidas em até 7 dias úteis após o recebimento, exceto cargas classificadas como perigosas (classes 1 a 6 da ANTT)."
+
+⚠️ Atenção: A documentação disponível não especifica nenhum procedimento alternativo para devolução de cargas perigosas — apenas as exclui da política padrão. Portanto, não é possível afirmar que existe um prazo ou processo alternativo para esse tipo de carga.
+Recomendo escalar para o supervisor caso o cliente esteja solicitando a devolução de uma carga nessa categoria.
+
+---------------------
+
+P: Meu cliente é Gold, qual o SLA de resolução?
+
+R:Clientes Gold têm prazo de resolução de até 24 horas.
+
+Fonte: SLA-2024
+Trecho relevante: "Cliente Gold — resposta em até 2h, resolução em até 24h."
+
+ℹ️ Complemento: Além do prazo de resolução, o cliente Gold também tem direito a resposta inicial em até 2 horas.
+
+---------------------
+
+P: Quanto custa o frete para 600kg para Manaus?
+
+
+R:O frete para 600 kg com destino a Manaus (Região Norte) utiliza o multiplicador regional de 1,8 aplicado sobre o valor base.
+
+Fonte: PROC-042-v2, seção 2
+Trecho relevante: "Frete especial para cargas acima de 500kg: valor base × multiplicador regional. Região Norte: 1.8."
+
+⚠️ Atenção: A documentação fornecida não informa o valor base do frete. Portanto, não é possível calcular o valor final sem essa informação.
+Recomendo consultar o sistema de tarifação ou escalar para o supervisor para obter o valor base e concluir o cálculo.

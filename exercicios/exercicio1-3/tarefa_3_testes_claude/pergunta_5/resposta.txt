@@ -1,0 +1,16 @@
+Multiplicador Regional — Sudeste
+Resposta direta: O multiplicador para a região Sudeste é 1.0, conforme a tabela de multiplicadores regionais. Porém, há um conflito de versões que exige atenção antes de repassar este valor ao cliente.
+Fonte: PROC-042-frete-especial-v1.md, seção 2.1
+Trecho relevante: "Sudeste | 1.0"
+
+⚠️ Atenção — Conflito de versões identificado:
+O Chunk 2 (FAQ-atendimento.md, Item 8) indica explicitamente que existem duas versões da PROC-042, e que a mais recente (v2) possui multiplicadores mais altos. O chunk de tabela fornecido nesta consulta corresponde apenas à v1.
+Isso significa que:
+
+O valor 1.0 é da versão antiga (v1) e pode estar desatualizado;
+A versão vigente (v2) não foi incluída nos chunks desta consulta — portanto, o multiplicador atual para o Sudeste não pode ser confirmado com as informações disponíveis;
+O próprio FAQ orienta: "na dúvida, use a mais recente (v2)".
+
+Antes de repassar qualquer multiplicador ao cliente, verifique a tabela da PROC-042-frete-especial-v2 e confira também se o contrato do cliente referencia qual versão se aplica ao caso dele.
+
+ℹ️ Complemento: O frete especial com tabela de multiplicadores é acionado para cargas acima de 500 kg. Caso a carga do cliente esteja abaixo desse limite, esta tabela pode não se aplicar. Fonte: FAQ-atendimento.md, Item 8.

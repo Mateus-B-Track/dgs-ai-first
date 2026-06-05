@@ -1,0 +1,37 @@
+Pergunta: Qual o prazo de devolução?
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights: 100%|████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 12839.96it/s]
+
+Top 3 chunk(s) para: 'Qual o prazo de devolução?'
+
+--- Resultado 1 ---
+Arquivo : POL-001-politica-devolucao.md
+Seção   : 3.5. Custos de devolução
+Distância: 0.7336
+Texto:
+### 3.5. Custos de devolução
+
+- Defeito ou erro da NovaTech (carga errada, avaria em trânsito): devolução sem custo para o cliente.
+- Desistência do cliente (carga correta, sem defeito): o custo do frete reverso é do cliente, calculado com os mesmos multiplicadores do frete original.
+- Prazo expirado (solicitação após 7 dias úteis): não elegível para devolução padrão. Encaminhar ao Comercial para negociação caso a caso.
+
+--- Resultado 2 ---
+Arquivo : FAQ-atendimento.md
+Seção   : Item 3 — "Cliente perguntou se pode devolver carga perigosa. O que respondo?"
+Distância: 0.8589
+Texto:
+### Item 3 — "Cliente perguntou se pode devolver carga perigosa. O que respondo?"
+Na prática, a gente orienta o cliente a ligar no ramal 4500 (Gestão de Riscos). Oficialmente não pode pelo processo padrão, mas já tiveram casos em que o pessoal de Riscos autorizou exceção. Então não diga que é impossível — diga que precisa de tratamento especial.
+
+--- Resultado 3 ---
+Arquivo : POL-001-politica-devolucao.md
+Seção   : 3.3. Procedimento de devolução
+Distância: 0.8836
+Texto:
+### 3.3. Procedimento de devolução
+
+1. O cliente abre chamado no Portal do Cliente (portal.novatech.com.br), selecionando a categoria "Devolução de Mercadoria".
+2. O chamado deve incluir: número do CT-e (Conhecimento de Transporte Eletrônico), fotos da mercadoria no estado atual (mínimo 3 fotos: embalagem externa, etiqueta de identificação, e conteúdo), e motivo da devolução.
+3. O time de atendimento tem 4 horas úteis para triagem do chamado (verificar elegibilidade, documentação e prazo).
+4. Se elegível, a coleta reversa é agendada em até 2 dias úteis após aprovação.
+5. O reembolso ou crédito é processado em até 5 dias úteis após o recebimento da mercadoria devolvida no centro de distribuição.

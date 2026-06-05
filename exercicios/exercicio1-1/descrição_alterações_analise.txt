@@ -1,0 +1,13 @@
+Correções em seções existentes:
+
+Seção 2 (Tokens): substituí os números pontuais por ranges otimista/pessimista. Adicionei a nota crítica sobre o multiplicador de serialização — a contradição interna da v1.0, onde a estratégia recomendada inflaria o volume muito além da estimativa apresentada. A planilha Excel agora admite explicitamente a incerteza, com range de 160K a 8M tokens.
+Seção 3.4 (Query decomposition): adicionei os custos reais da abordagem — latência acumulada, necessidade de dados rotulados para o classificador, risco de decomposição errada e custo adicional de API. O fallback virou requisito explícito.
+Seção 4, Passo 5 (Documentos contraditórios): separei o que o sistema pode tratar em runtime do que é pré-condição de qualidade de dados. A resolução de contradições virou item contratual do discovery, não feature do sistema.
+Síntese executiva: a meta de "> 85% de acurácia" foi requalificada para "65–75% no MVP" com justificativa, e o golden dataset virou entregável obrigatório. A projeção de ganho de produtividade foi substituída por uma curva gradual mais realista.
+
+Seções inteiramente novas:
+
+Seção 1.2 — aviso de dimensionamento da fila de OCR: calcula explicitamente o potencial de 12.000 chunks em revisão humana e exige decisão de gestão.
+Seção 5 — Governança de Dados e Riscos Organizacionais: cobre acesso e segurança, resistência ao change, e a auditoria documental como pré-condição.
+Seção 6 — Integração técnica com Teams: compara as três abordagens de integração, detalha limitações do canal e trata a questão de permissões individuais vs. service account.
+"O que o MVP não vai conseguir fazer bem": lista explícita de limitações, que não existia na v1.0.

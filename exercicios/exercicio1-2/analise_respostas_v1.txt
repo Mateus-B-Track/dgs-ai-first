@@ -1,0 +1,15 @@
+Resposta 1 — "Qual o prazo de devolução para carga perigosa?"
+
+Correta? Sim — acertou o ponto mais crítico do exercício. Cargas perigosas não podem ser devolvidas pelo processo padrão, conforme a exceção explícita do POL-001 seção 3.2. O critério de avaliação do exercício menciona exatamente isso como o caso-teste principal.
+Citou fonte? Sim, com trecho relevante.
+Respeitou guardrails? Sim — não inventou um procedimento alternativo, reconheceu o gap e recomendou escalar. O aviso ⚠️ é bem pertinente.
+Resposta 2 — "Meu cliente é Gold, qual o SLA de resolução?"
+
+Correta? Sim — 24h está correto conforme o Chunk B.
+Citou fonte? Sim.
+Respeitou guardrails? Sim. O complemento com o SLA de resposta (2h) não foi pedido, mas é informação relevante do mesmo chunk — comportamento aceitável.
+Resposta 3 — "Quanto custa o frete para 600kg para Manaus?"
+
+Correta? Parcialmente correta — o multiplicador 1.8 para Região Norte está certo. O assistente identificou corretamente que o valor base não está nos chunks e não o inventou. Isso é exatamente o guardrail 2 funcionando.
+Citou fonte? Sim.
+Respeitou guardrails? Sim — recomendou consultar o sistema de tarifação.

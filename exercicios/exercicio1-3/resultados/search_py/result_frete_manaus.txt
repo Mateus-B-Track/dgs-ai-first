@@ -1,0 +1,30 @@
+Top 3 chunk(s) para: 'Frete para 600kg para Manaus?'
+
+--- Resultado 1 ---
+Arquivo : PROC-042-frete-especial-v1.md
+Seção   : 1. Objetivo
+Distância: 1.0516
+Texto:
+## 1. Objetivo
+
+Definir a fórmula e os parâmetros para cálculo de frete especial aplicável a cargas com peso acima de 500kg.
+
+--- Resultado 2 ---
+Arquivo : PROC-042-v2-frete-especial-revisado.md
+Seção   : 4. Condições especiais
+Distância: 1.069
+Texto:
+## 4. Condições especiais
+
+- Cargas acima de 5.000kg requerem aprovação prévia do gerente de operações regional.
+- Cargas perigosas com peso acima de 500kg seguem tabela específica (PROC-043: Frete de Cargas Perigosas). Nota: a PROC-043 está em processo de revisão pelo Compliance e pode sofrer alterações.
+- Descontos de volume: a partir de 8 fretes especiais/mês para o mesmo cliente, aplicar desconto de 5% sobre o multiplicador regional. Acima de 15 fretes/mês, desconto de 10%. Descontos maiores requerem aprovação da Diretoria Comercial.
+
+--- Resultado 3 ---
+Arquivo : PROC-042-v2-frete-especial-revisado.md
+Seção   : 1. Objetivo
+Distância: 1.0809
+Texto:
+## 1. Objetivo
+
+Definir a fórmula e os parâmetros atualizados para cálculo de frete especial aplicável a cargas com peso acima de 500kg. Os multiplicadores foram revisados para refletir os custos operacionais atualizados de cada região.

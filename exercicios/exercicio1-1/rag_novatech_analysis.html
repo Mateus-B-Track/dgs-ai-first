@@ -1,0 +1,514 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  h2.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+  .report { padding: 1.5rem 0; max-width: 680px; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 0.5px solid var(--color-border-secondary);
+    padding-bottom: 10px; margin-bottom: 1.5rem; margin-top: 2rem;
+  }
+  .section-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-secondary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 500; color: var(--color-text-secondary);
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 16px; font-weight: 500; color: var(--color-text-primary); }
+
+  .source-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
+  .source-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .source-card:hover { border-color: var(--color-border-primary); }
+  .source-card.active { border: 1.5px solid var(--color-border-info); }
+  .source-card-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+  }
+  .source-icon {
+    width: 32px; height: 32px; border-radius: var(--border-radius-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; flex-shrink: 0;
+  }
+  .source-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .source-tag { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+
+  .detail-panel {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: 16px 18px; margin-bottom: 1.5rem;
+    display: none;
+  }
+  .detail-panel.visible { display: block; }
+  .detail-row { display: grid; grid-template-columns: 100px 1fr; gap: 8px 16px; margin-bottom: 8px; align-items: start; }
+  .detail-label { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); padding-top: 2px; }
+  .detail-value { font-size: 13px; color: var(--color-text-primary); line-height: 1.6; }
+  .badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 500;
+    padding: 2px 8px; border-radius: 4px;
+    margin-right: 4px; margin-bottom: 4px;
+  }
+  .badge-danger { background: #FCEBEB; color: #A32D2D; }
+  .badge-warning { background: #FAEEDA; color: #854F0B; }
+  .badge-info { background: #E6F1FB; color: #185FA5; }
+  .badge-success { background: #EAF3DE; color: #3B6D11; }
+  @media (prefers-color-scheme: dark) {
+    .badge-danger { background: #501313; color: #F09595; }
+    .badge-warning { background: #412402; color: #FAC775; }
+    .badge-info { background: #042C53; color: #85B7EB; }
+    .badge-success { background: #173404; color: #97C459; }
+  }
+
+  .calc-block {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .calc-title { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .calc-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: var(--color-text-primary);
+    padding: 5px 0;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .calc-row:last-child { border-bottom: none; }
+  .calc-row .op { color: var(--color-text-secondary); font-size: 12px; margin: 0 6px; }
+  .calc-total {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; font-weight: 500; color: var(--color-text-primary);
+    padding: 10px 0 0;
+    border-top: 1px solid var(--color-border-secondary);
+    margin-top: 6px;
+  }
+  .big-number { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .big-label { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+
+  .metric-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .metric-card {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 12px 14px;
+  }
+  .metric-val { font-size: 20px; font-weight: 500; }
+  .metric-lbl { font-size: 12px; color: var(--color-text-secondary); margin-top: 3px; }
+
+  .context-vis {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 16px; margin-bottom: 1.5rem;
+  }
+  .ctx-bar-container { position: relative; height: 36px; border-radius: 6px; overflow: hidden; margin: 12px 0 8px; display: flex; }
+  .ctx-seg {
+    height: 100%; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 500; transition: width 0.3s;
+    white-space: nowrap; overflow: hidden;
+  }
+  .ctx-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .ctx-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-secondary); }
+  .ctx-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  .chunk-slider-area { margin: 16px 0; }
+  .slider-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .slider-row label { font-size: 13px; color: var(--color-text-secondary); min-width: 120px; }
+  .slider-row input { flex: 1; }
+  .slider-row .val { font-size: 13px; font-weight: 500; min-width: 50px; text-align: right; }
+
+  .chunking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
+  .chunking-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 14px;
+  }
+  .chunking-card.recommended { border: 1.5px solid var(--color-border-success); }
+  .chunking-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .chunking-name { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .chunking-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+
+  .insight-box {
+    background: var(--color-background-secondary);
+    border-left: 3px solid var(--color-border-info);
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    padding: 12px 14px; margin: 10px 0;
+    font-size: 13px; line-height: 1.65; color: var(--color-text-primary);
+  }
+  .warn-box {
+    background: var(--color-background-secondary);
+    border-left: 3px solid var(--color-border-warning);
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    padding: 12px 14px; margin: 10px 0;
+    font-size: 13px; line-height: 1.65; color: var(--color-text-primary);
+  }
+  .prose { font-size: 13px; line-height: 1.7; color: var(--color-text-primary); margin-bottom: 10px; }
+
+  .lost-mid-vis {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 14px 16px; margin: 12px 0;
+  }
+  .ctx-blocks { display: flex; gap: 3px; align-items: stretch; height: 44px; border-radius: 4px; overflow: hidden; margin: 10px 0; }
+  .ctx-block {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 500; flex-shrink: 0;
+  }
+
+  .strategy-list { list-style: none; margin: 10px 0; }
+  .strategy-list li {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary);
+    font-size: 13px; line-height: 1.6;
+  }
+  .strategy-list li:last-child { border-bottom: none; }
+  .strategy-list .num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--color-background-secondary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 500; flex-shrink: 0; margin-top: 1px;
+  }
+</style>
+
+<h2 class="sr-only">Análise técnica de viabilidade para sistema RAG da NovaTech — quatro seções: fontes de dados, estimativa de tokens, orçamento de contexto e estratégia de chunking.</h2>
+
+<div class="report">
+
+  <!-- SECTION 1 -->
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div class="section-title">Análise por tipo de fonte</div>
+  </div>
+  <p class="prose">Clique em cada tipo de fonte para ver o desafio específico, o impacto na qualidade das respostas e a estratégia recomendada.</p>
+
+  <div class="source-grid">
+    <div class="source-card" onclick="toggleSource('pdf-table')" id="card-pdf-table">
+      <div class="source-card-header">
+        <div class="source-icon" style="background:#E6F1FB; color:#185FA5;"><i class="ti ti-table" aria-hidden="true"></i></div>
+        <div>
+          <div class="source-name">PDFs com tabelas</div>
+          <div class="source-tag">15+ colunas</div>
+        </div>
+      </div>
+      <span class="badge badge-danger">Alto risco</span>
+    </div>
+    <div class="source-card" onclick="toggleSource('pdf-ocr')" id="card-pdf-ocr">
+      <div class="source-card-header">
+        <div class="source-icon" style="background:#FAEEDA; color:#854F0B;"><i class="ti ti-scan" aria-hidden="true"></i></div>
+        <div>
+          <div class="source-name">PDFs escaneados</div>
+          <div class="source-tag">Necessitam OCR</div>
+        </div>
+      </div>
+      <span class="badge badge-warning">Médio-alto risco</span>
+    </div>
+    <div class="source-card" onclick="toggleSource('confluence')" id="card-confluence">
+      <div class="source-card-header">
+        <div class="source-icon" style="background:#EAF3DE; color:#3B6D11;"><i class="ti ti-link" aria-hidden="true"></i></div>
+        <div>
+          <div class="source-name">Wiki Confluence</div>
+          <div class="source-tag">Links e macros</div>
+        </div>
+      </div>
+      <span class="badge badge-warning">Médio risco</span>
+    </div>
+    <div class="source-card" onclick="toggleSource('excel')" id="card-excel">
+      <div class="source-card-header">
+        <div class="source-icon" style="background:#FBEAF0; color:#993556;"><i class="ti ti-chart-bar" aria-hidden="true"></i></div>
+        <div>
+          <div class="source-name">Planilhas Excel</div>
+          <div class="source-tag">Fórmulas interdependentes</div>
+        </div>
+      </div>
+      <span class="badge badge-warning">Médio risco</span>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-pdf-table">
+    <div class="detail-row"><div class="detail-label">Desafio</div><div class="detail-value">Tabelas com 15+ colunas extraídas como texto linear perdem a estrutura dimensional. Um chunk que contém "destino, peso 1–5kg, peso 6–10kg, zona norte, zona sul…" sem cabeçalhos é semanticamente opaco para o retriever e para o LLM. Fluxogramas embutidos como imagens são ignorados completamente pela maioria dos parsers de texto.</div></div>
+    <div class="detail-row"><div class="detail-label">Impacto</div><div class="detail-value">O assistente responderá perguntas como "qual o frete para 8kg, destino Sul?" com dados incorretos ou recusará a resposta por falta de contexto estruturado. A taxa de erro em perguntas numéricas pode ultrapassar 40% com chunking ingênuo.</div></div>
+    <div class="detail-row"><div class="detail-label">Estratégia</div><div class="detail-value">
+      <span class="badge badge-info">Azure Document Intelligence</span><span class="badge badge-info">Table serialization</span><span class="badge badge-success">Markdown table format</span>
+      <div style="margin-top:8px;">Usar Azure Document Intelligence (Layout model) para extração estruturada. Serializar cada tabela como Markdown ou JSON com cabeçalhos repetidos por linha. Cada linha da tabela = 1 chunk autossuficiente, ex.: "Tabela de frete | Peso: 6–10kg | Destino: Sul | Prazo SLA: 3 dias úteis | Valor: R$ 45,00". Para fluxogramas, gerar descrição textual via GPT-4o Vision como metadado enriquecido.</div>
+    </div></div>
+  </div>
+
+  <div class="detail-panel" id="detail-pdf-ocr">
+    <div class="detail-row"><div class="detail-label">Desafio</div><div class="detail-value">Documentos escaneados produzem texto com taxa de erro de caractere (CER) de 2–8% em OCR padrão, chegando a 15–25% em PDFs de baixa qualidade (< 150 DPI). Erros como "prazo de 3 dias üteis" ou "R$4S,00" são invisíveis para o pipeline mas fatais para precisão das respostas.</div></div>
+    <div class="detail-row"><div class="detail-label">Impacto</div><div class="detail-value">Além de erros numéricos, metadados estruturais (datas de vigência dos documentos, números de versão) ficam ilegíveis, impossibilitando filtros temporais. Um documento de política desatualizado pode ser recuperado e citado como fonte vigente.</div></div>
+    <div class="detail-row"><div class="detail-label">Estratégia</div><div class="detail-value">
+      <span class="badge badge-info">Azure AI Vision OCR</span><span class="badge badge-warning">Confidence scoring</span><span class="badge badge-success">Human-in-loop para CER > 5%</span>
+      <div style="margin-top:8px;">Pipeline em dois estágios: (1) Azure AI Vision OCR com confidence score por token — chunks com score médio < 0,85 entram em fila de revisão humana antes de indexação. (2) Pré-processamento com modelos de linguagem para post-OCR correction em passagens numéricas. Obrigatório metadado de "confiança do OCR" e "data do documento" em cada chunk para filtros de retrieval.</div>
+    </div></div>
+  </div>
+
+  <div class="detail-panel" id="detail-confluence">
+    <div class="detail-row"><div class="detail-label">Desafio</div><div class="detail-value">Links internos entre páginas criam dependências de contexto: a Página A define "Nível 1 de cliente", a Página B usa o termo sem defini-lo. Um chunk de B sem o contexto de A produzirá resposta incompleta. Macros customizadas (tabelas de status, painel de tarefas, expanders) são exportadas como HTML não interpretado ou simplesmente omitidas.</div></div>
+    <div class="detail-row"><div class="detail-label">Impacto</div><div class="detail-value">Termos técnicos internos da NovaTech (siglas de área, códigos de SLA, tipos de cliente) ficarão sem definição no contexto, causando respostas genéricas ou confusas. Estimamos que ~30% das páginas do Confluence da NovaTech dependem de contexto de outra página.</div></div>
+    <div class="detail-row"><div class="detail-label">Estratégia</div><div class="detail-value">
+      <span class="badge badge-info">Confluence API v2</span><span class="badge badge-info">Graph-aware chunking</span><span class="badge badge-success">Glossário centralizado</span>
+      <div style="margin-top:8px;">Usar Confluence REST API v2 para exportação com resolução de links (incluir título + primeiro parágrafo da página vinculada como metadado contextual do chunk). Construir um grafo de dependência entre páginas para identificar "páginas âncora" que devem ser recuperadas em conjunto. Macros: parsear o HTML exportado e converter painel de status em texto estruturado, ignorar macros puramente visuais.</div>
+    </div></div>
+  </div>
+
+  <div class="detail-panel" id="detail-excel">
+    <div class="detail-row"><div class="detail-label">Desafio</div><div class="detail-value">Fórmulas como =VLOOKUP(A2,TabelaClientes,3,FALSE) são texto sem semântica para o LLM. O valor computado depende de células em outras abas (e potencialmente outros arquivos), tornando os dados estáticos na exportação. Planilhas atualizadas mensalmente criam risco de desatualização se o pipeline de ingestão não for automatizado.</div></div>
+    <div class="detail-row"><div class="detail-label">Impacto</div><div class="detail-value">Se a planilha de SLA for indexada com valores calculados em uma data e o atendente consultar 3 semanas depois (pós-atualização mensal), as respostas estarão desatualizadas. Planilhas com múltiplas abas interdependentes podem produzir chunks contraditórios entre si.</div></div>
+    <div class="detail-row"><div class="detail-label">Estratégia</div><div class="detail-value">
+      <span class="badge badge-info">Exportação de valores calculados</span><span class="badge badge-warning">Trigger automático mensal</span><span class="badge badge-success">Desnormalização estruturada</span>
+      <div style="margin-top:8px;">Nunca indexar fórmulas, apenas valores calculados exportados via openpyxl com evaluate=True. Desnormalizar as abas em tabelas planas antes do chunking — cada linha deve ser autossuficiente com todas as colunas relevantes. Configurar trigger de re-ingestão automática no SharePoint (Power Automate) para qualquer arquivo .xlsx modificado, com versionamento de chunks por hash do conteúdo para detectar mudanças reais vs. salvamentos sem alteração.</div>
+    </div></div>
+  </div>
+
+
+  <!-- SECTION 2 -->
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div class="section-title">Estimativa do tamanho da base em tokens</div>
+  </div>
+
+  <div class="calc-block">
+    <div class="calc-title">PDFs do SharePoint — 800 documentos</div>
+    <div class="calc-row"><span>800 docs × 10 páginas/doc</span><span class="op">=</span><span style="font-weight:500">8.000 páginas</span></div>
+    <div class="calc-row"><span>Média de palavras/página (PDF logística)</span><span class="op">≈</span><span style="font-weight:500">350 palavras</span></div>
+    <div class="calc-row"><span style="padding-left:12px; color: var(--color-text-secondary); font-size:12px;">Justificativa: PDFs técnicos de logística têm ~250–300 palavras de texto corrido por página, mais ~80–100 palavras adicionais em tabelas e legendas. Estimativa conservadora de 350.</span><span></span><span></span></div>
+    <div class="calc-row"><span>8.000 × 350 palavras</span><span class="op">=</span><span style="font-weight:500">2.800.000 palavras</span></div>
+    <div class="calc-row"><span>2.800.000 ÷ 0,75</span><span class="op">=</span><span style="font-weight:500; color: #185FA5;">~3,73M tokens</span></div>
+  </div>
+
+  <div class="calc-block">
+    <div class="calc-title">Wiki Confluence — 400 páginas</div>
+    <div class="calc-row"><span>400 páginas × 1.500 palavras/página</span><span class="op">=</span><span style="font-weight:500">600.000 palavras</span></div>
+    <div class="calc-row"><span>600.000 ÷ 0,75</span><span class="op">=</span><span style="font-weight:500; color: #185FA5;">~800K tokens</span></div>
+  </div>
+
+  <div class="calc-block">
+    <div class="calc-title">Planilhas Excel — 50 arquivos</div>
+    <div class="calc-row"><span>Tamanho médio estimado por planilha</span><span class="op">≈</span><span style="font-weight:500">200 linhas × 8 colunas</span></div>
+    <div class="calc-row"><span style="padding-left:12px; color: var(--color-text-secondary); font-size:12px;">Planilhas de referência de logística (SLA, frete, tarifas): tabelas densas mas não gigantescas. ~1.600 células com média de 3–5 palavras/célula após desnormalização.</span><span></span><span></span></div>
+    <div class="calc-row"><span>50 planilhas × 1.600 células × 4 palavras</span><span class="op">=</span><span style="font-weight:500">320.000 palavras</span></div>
+    <div class="calc-row"><span>320.000 ÷ 0,75</span><span class="op">=</span><span style="font-weight:500; color: #185FA5;">~427K tokens</span></div>
+  </div>
+
+  <div class="calc-block" style="border-color: var(--color-border-secondary);">
+    <div class="calc-title">Total consolidado</div>
+    <div class="calc-row"><span>PDFs (SharePoint)</span><span style="font-weight:500; color: #185FA5;">3.733.333 tokens</span></div>
+    <div class="calc-row"><span>Wiki (Confluence)</span><span style="font-weight:500; color: #185FA5;">800.000 tokens</span></div>
+    <div class="calc-row"><span>Planilhas (Excel)</span><span style="font-weight:500; color: #185FA5;">426.667 tokens</span></div>
+    <div class="calc-total">
+      <span>Total estimado da base</span>
+      <div style="text-align:right">
+        <div class="big-number">~4,96M tokens</div>
+        <div class="big-label">≈ 5 milhões de tokens brutos</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    Com ~5M tokens brutos, a base completa não cabe em nenhuma janela de contexto atual — nem mesmo modelos com 1M tokens de contexto poderiam processar isso de forma prática por query. Isso confirma a necessidade de retrieval semântico eficiente como etapa central da arquitetura, não opcional.
+  </div>
+
+
+  <!-- SECTION 3 -->
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div class="section-title">Análise de orçamento de contexto</div>
+  </div>
+
+  <div class="metric-row">
+    <div class="metric-card">
+      <div class="metric-val">128K</div>
+      <div class="metric-lbl">Janela total do GPT-4o</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">~250</div>
+      <div class="metric-lbl">Chunks por query (máx. teórico)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">~20–30</div>
+      <div class="metric-lbl">Chunks recomendados (prático)</div>
+    </div>
+  </div>
+
+  <p class="prose" style="margin-bottom:12px;">Use o simulador abaixo para explorar o orçamento de contexto dinamicamente:</p>
+
+  <div class="context-vis">
+    <div style="font-size:13px; font-weight:500; margin-bottom:10px;">Distribuição do contexto de 128K tokens</div>
+
+    <div class="chunk-slider-area">
+      <div class="slider-row">
+        <label>Nº de chunks</label>
+        <input type="range" min="5" max="50" value="20" id="num-chunks" step="1" oninput="updateCtx()">
+        <span class="val" id="val-chunks">20</span>
+      </div>
+      <div class="slider-row">
+        <label>Histórico de conversa</label>
+        <input type="range" min="0" max="20000" value="3000" id="hist-tokens" step="500" oninput="updateCtx()">
+        <span class="val" id="val-hist">3.000 tk</span>
+      </div>
+    </div>
+
+    <div class="ctx-bar-container" id="ctx-bar">
+      <!-- filled by JS -->
+    </div>
+    <div class="ctx-legend">
+      <div class="ctx-legend-item"><div class="ctx-dot" style="background:#185FA5;"></div>System prompt (2K)</div>
+      <div class="ctx-legend-item"><div class="ctx-dot" style="background:#0F6E56;"></div>Chunks recuperados</div>
+      <div class="ctx-legend-item"><div class="ctx-dot" style="background:#854F0B;"></div>Histórico da conversa</div>
+      <div class="ctx-legend-item"><div class="ctx-dot" style="background:#B4B2A9;"></div>Buffer para resposta</div>
+      <div class="ctx-legend-item" id="overflow-legend" style="display:none"><div class="ctx-dot" style="background:#A32D2D;"></div>Overflow (excedido)</div>
+    </div>
+    <div style="font-size:13px; margin-top:12px; color: var(--color-text-secondary);" id="ctx-summary"></div>
+  </div>
+
+  <div class="warn-box" id="cross-domain-warning">
+    <strong>Perguntas multi-domínio (ex: SLA + frete simultâneos):</strong> Uma pergunta como "qual o prazo para cliente Nível 2 com carga de 12kg para o Norte?" exige chunks de pelo menos 3 fontes diferentes (tabela de SLA, tabela de frete, definição de nível de cliente). Com chunks de 500 tokens cada, precisamos de no mínimo 6–9 chunks de qualidade para cobrir todos os domínios — e o retriever por similaridade semelhante tipicamente não recupera bem múltiplos domínios em uma única query. Solução: query decomposition (quebrar a pergunta em sub-queries) + multi-step retrieval antes da geração.
+  </div>
+
+  <div class="lost-mid-vis">
+    <div style="font-size:13px; font-weight:500; margin-bottom:6px;">Efeito "lost in the middle"</div>
+    <p style="font-size:12px; color:var(--color-text-secondary); margin-bottom:10px; line-height:1.6;">Chunks nas posições centrais do contexto recebem menos "atenção" do modelo. Posicione os chunks mais relevantes no início ou no final do bloco de contexto.</p>
+    <div class="ctx-blocks">
+      <div class="ctx-block" style="background:#185FA5; color:#E6F1FB; width:18%; font-size:10px;">Chunk 1<br>Alta atenção</div>
+      <div class="ctx-block" style="background:#5DCAA5; color:#04342C; width:10%;">Ch 2</div>
+      <div class="ctx-block" style="background:#B4B2A9; color:#2C2C2A; width:10%; font-size:9px;">Ch 3<br>↓atenção</div>
+      <div class="ctx-block" style="background:#D3D1C7; color:#2C2C2A; width:10%; font-size:9px;">Ch 4<br>↓↓</div>
+      <div class="ctx-block" style="background:#D3D1C7; color:#2C2C2A; width:10%; font-size:9px;">Ch 5<br>↓↓</div>
+      <div class="ctx-block" style="background:#B4B2A9; color:#2C2C2A; width:10%; font-size:9px;">Ch 6<br>↓</div>
+      <div class="ctx-block" style="background:#5DCAA5; color:#04342C; width:10%;">Ch N-1</div>
+      <div class="ctx-block" style="background:#185FA5; color:#E6F1FB; width:22%; font-size:10px;">Chunk N<br>Alta atenção</div>
+    </div>
+    <p style="font-size:12px; color:var(--color-text-secondary); line-height:1.6;">Implicação prática: limitar a 20–25 chunks por query e usar reranking (cross-encoder) para garantir que os chunks mais relevantes ocupem as posições privilegiadas.</p>
+  </div>
+
+
+  <!-- SECTION 4 -->
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div class="section-title">Recomendação de estratégia de chunking</div>
+  </div>
+
+  <p class="prose">A NovaTech tem dois perfis de pergunta dominantes, com necessidades de chunking opostas:</p>
+
+  <div class="chunking-grid">
+    <div class="chunking-card">
+      <div class="chunking-label" style="color: #185FA5;">Tipo A — Perguntas diretas</div>
+      <div class="chunking-name">Chunks pequenos (200–350 tokens)</div>
+      <div class="chunking-desc">"Qual o prazo para cliente Padrão?" — a resposta está em 1–2 linhas de uma tabela. Chunks grandes diluem o sinal semântico e o retriever recupera chunks irrelevantes.</div>
+    </div>
+    <div class="chunking-card">
+      <div class="chunking-label" style="color: #3B6D11;">Tipo B — Perguntas contextuais</div>
+      <div class="chunking-name">Chunks médios (400–600 tokens)</div>
+      <div class="chunking-desc">"Como funciona o processo de reclamação para avaria de carga?" — exige contexto de procedimento multi-etapa. Chunks pequenos fragmentam o raciocínio necessário.</div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>Por que chunking fixo sem overlap é problemático aqui:</strong> Com documentos de procedimento multi-etapa, um chunk pode terminar no meio de uma instrução: "…acione o operador responsável. Em seguida, [CORTE DE CHUNK] preencha o formulário F-07 com…". O segundo chunk não tem contexto suficiente para ser recuperado na query original. Estimamos que ~15–20% das informações críticas da NovaTech estejam em posições de fronteira de chunk com chunking fixo de 500 tokens.
+  </div>
+
+  <p class="prose" style="margin-top:12px; margin-bottom:12px;">Estratégia recomendada: chunking hierárquico com overlap adaptativo</p>
+
+  <ul class="strategy-list">
+    <li>
+      <div class="num">1</div>
+      <div><strong>Segmentação semântica primária</strong> — usar estrutura natural do documento (títulos H1/H2, seções, breaks de tabela) como fronteiras de chunk, não tamanho fixo em tokens. Isso preserva unidades de significado completas.</div>
+    </li>
+    <li>
+      <div class="num">2</div>
+      <div><strong>Overlap de 10–15% entre chunks adjacentes</strong> — ~50–70 tokens de sobreposição. Para chunks de 500 tokens, isso significa repetir as últimas 2–3 frases no início do próximo chunk. Custo: +15% de espaço de índice. Benefício: elimina o problema de fronteira de chunk estimado em ~15–20% das perdas de informação.</div>
+    </li>
+    <li>
+      <div class="num">3</div>
+      <div><strong>Chunks pai–filho (parent-child chunking)</strong> — indexar chunks pequenos (200 tokens) para recuperação precisa, mas retornar o chunk pai (500–800 tokens) ao LLM para geração. Isso combina alta precisão de retrieval com contexto suficiente para geração de qualidade.</div>
+    </li>
+    <li>
+      <div class="num">4</div>
+      <div><strong>Metadados obrigatórios em cada chunk</strong> — fonte (SharePoint/Confluence/Excel), nome do documento, data de última atualização, área responsável (Operações/Compliance/Comercial), nível de confiança OCR (quando aplicável). Esses metadados permitem filtros de retrieval que aumentam precisão sem aumentar o número de chunks no contexto.</div>
+    </li>
+    <li>
+      <div class="num">5</div>
+      <div><strong>Tratamento especial para documentos contraditórios</strong> — dado que a NovaTech tem documentos em versões conflitantes, adicionar metadado de versão + data e configurar o prompt para priorizar a versão mais recente explicitamente quando houver múltiplos chunks do mesmo tópico com datas diferentes.</div>
+    </li>
+  </ul>
+
+  <div class="insight-box" style="margin-top:16px;">
+    Impacto esperado na meta de negócio: com retrieval em &lt; 2s (vs. busca manual atual de 12 min) e acurácia de resposta &gt; 85% (meta conservadora com a estratégia acima), a redução de tempo por chamado alcança facilmente o objetivo de &lt; 2 minutos. O principal risco residual é a qualidade da ingestão das tabelas de frete — o ponto de maior complexidade técnica do projeto.
+  </div>
+
+</div>
+
+<script>
+function toggleSource(id) {
+  const sources = ['pdf-table', 'pdf-ocr', 'confluence', 'excel'];
+  sources.forEach(s => {
+    const panel = document.getElementById('detail-' + s);
+    const card = document.getElementById('card-' + s);
+    if (s === id) {
+      const isOpen = panel.classList.contains('visible');
+      panel.classList.toggle('visible', !isOpen);
+      card.classList.toggle('active', !isOpen);
+    } else {
+      panel.classList.remove('visible');
+      card.classList.remove('active');
+    }
+  });
+}
+
+function updateCtx() {
+  const numChunks = parseInt(document.getElementById('num-chunks').value);
+  const histTokens = parseInt(document.getElementById('hist-tokens').value);
+  document.getElementById('val-chunks').textContent = numChunks;
+  document.getElementById('val-hist').textContent = histTokens.toLocaleString('pt-BR') + ' tk';
+
+  const total = 128000;
+  const systemPrompt = 2000;
+  const responseBuffer = 4000;
+  const chunkTokens = numChunks * 500;
+  const used = systemPrompt + chunkTokens + histTokens + responseBuffer;
+  const overflow = Math.max(0, used - total);
+  const available = total - systemPrompt - histTokens - responseBuffer;
+
+  const bar = document.getElementById('ctx-bar');
+  const pSys = (systemPrompt / total * 100).toFixed(1);
+  const pChunks = Math.min(chunkTokens, available) / total * 100;
+  const pHist = Math.min(histTokens, total) / total * 100;
+  const pBuf = (responseBuffer / total * 100).toFixed(1);
+  const pOver = (overflow / total * 100).toFixed(1);
+
+  let html = `<div class="ctx-seg" style="width:${pSys}%; background:#185FA5; color:#E6F1FB;">Sys</div>`;
+  html += `<div class="ctx-seg" style="width:${pChunks.toFixed(1)}%; background:#0F6E56; color:#E1F5EE;">Chunks (${numChunks}×500)</div>`;
+  html += `<div class="ctx-seg" style="width:${pHist.toFixed(1)}%; background:#854F0B; color:#FAEEDA; min-width:0; ${histTokens===0?'display:none':''}">Conv.</div>`;
+  html += `<div class="ctx-seg" style="width:${pBuf}%; background:#B4B2A9; color:#444441;">Buffer</div>`;
+  if (overflow > 0) {
+    html += `<div class="ctx-seg" style="width:${pOver}%; background:#A32D2D; color:#FCEBEB; min-width:20px;">Over</div>`;
+  }
+  bar.innerHTML = html;
+
+  const overflowLegend = document.getElementById('overflow-legend');
+  overflowLegend.style.display = overflow > 0 ? 'flex' : 'none';
+
+  const maxChunksAvailable = Math.floor(available / 500);
+  const summary = document.getElementById('ctx-summary');
+  if (overflow > 0) {
+    summary.innerHTML = `<span style="color:var(--color-text-danger)"><i class="ti ti-alert-triangle" style="font-size:14px; vertical-align:-2px;" aria-hidden="true"></i> Overflow de ${overflow.toLocaleString('pt-BR')} tokens (${((overflow/total)*100).toFixed(1)}% do contexto). Com esse histórico, cabe no máximo <strong>${maxChunksAvailable} chunks</strong>.</span>`;
+  } else {
+    const remaining = total - used;
+    summary.innerHTML = `Capacidade utilizada: <strong>${((used/total)*100).toFixed(1)}%</strong> — sobram ${remaining.toLocaleString('pt-BR')} tokens livres. Máximo de chunks com esse histórico: <strong>${maxChunksAvailable}</strong>.`;
+  }
+}
+
+updateCtx();
+</script>

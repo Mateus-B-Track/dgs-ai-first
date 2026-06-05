@@ -1,0 +1,13 @@
+SLA do Cliente GoldSLA do Cliente Gold
+O cliente Gold possui 2 horas para resposta e 24 horas para resolução.
+Fonte: FAQ-atendimento.md, Item 41
+Trecho relevante: "O Gold tem 2h de resposta e 24h de resolução."
+
+⚠️ Atenção:
+
+Para incidentes críticos, o FAQ indica que os prazos são menores e orienta consultar a tabela SLA-2024. Os valores específicos para esse cenário não estão presentes nos chunks fornecidos nesta consulta. Caso o atendimento envolva um incidente crítico, verifique a tabela SLA-2024 antes de informar o prazo ao cliente.
+O relógio de SLA não pausa fora do horário comercial para clientes Gold em incidentes críticos (ao contrário dos chamados gerais, em que o relógio pausa entre 18h e 08h em dias não úteis).
+
+Fonte do item acima: SLA-2024-tabela-sla-clientes.md, Seção 5
+
+ℹ️ Complemento: Caso o cliente mencione ser do tier "Platinum", este tier não existe na NovaTech. Oriente-o de que os tiers vigentes são Gold, Silver e Standard, e solicite o número do contrato para verificação. (FAQ-atendimento.md, Item 15)

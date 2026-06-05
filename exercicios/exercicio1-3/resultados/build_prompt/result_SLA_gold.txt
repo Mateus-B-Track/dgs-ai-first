@@ -1,0 +1,16 @@
+## DOCUMENTAÇÃO RECUPERADA
+
+--- Chunk 1 | Arquivo: SLA-2024-tabela-sla-clientes.md | Seção: 5. Medição e reportes ---
+## 5. Medição e reportes
+
+Os SLAs são medidos pelo sistema de chamados (Azure DevOps) a partir do timestamp de abertura do chamado. O relógio de SLA pausa fora do horário comercial (08h-18h, dias úteis) para chamados gerais, mas não pausa para incidentes críticos de clientes Gold.
+
+## PERGUNTA DO ATENDENTE
+
+Qual o SLA do cliente Gold?
+============================================================
+
+Total de caracteres: 3052
+Estimativa de tokens: ~763
+
+Errado, porém no search ele trouxe os corretos.

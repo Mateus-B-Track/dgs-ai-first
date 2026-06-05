@@ -1,0 +1,46 @@
+## DOCUMENTAÇÃO RECUPERADA
+
+--- Chunk 1 | Arquivo: SLA-2024-tabela-sla-clientes.md | Seção: 5. Medição e reportes ---
+## 5. Medição e reportes
+
+Os SLAs são medidos pelo sistema de chamados (Azure DevOps) a partir do timestamp de abertura do chamado. O relógio de SLA pausa fora do horário comercial (08h-18h, dias úteis) para chamados gerais, mas não pausa para incidentes críticos de clientes Gold.
+
+## PERGUNTA DO ATENDENTE
+
+Qual o SLA do cliente Gold?
+============================================================
+
+Total de caracteres: 3052
+Estimativa de tokens: ~763
+
+C:\Users\mateus.track\ai-first\dgs-ai-first>python exercicios/exercicio1-3/search.py
+Pergunta: Qual o SLA do cliente Gold?
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights: 100%|█████████████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 11320.21it/s]
+
+Top 3 chunk(s) para: 'Qual o SLA do cliente Gold?'
+
+--- Resultado 1 ---
+Arquivo : SLA-2024-tabela-sla-clientes.md
+Seção   : 5. Medição e reportes
+Distância: 0.9017
+Texto:
+## 5. Medição e reportes
+
+Os SLAs são medidos pelo sistema de chamados (Azure DevOps) a partir do timestamp de abertura do chamado. O relógio de SLA pausa fora do horário comercial (08h-18h, dias úteis) para chamados gerais, mas não pausa para incidentes críticos de clientes Gold.
+
+--- Resultado 2 ---
+Arquivo : FAQ-atendimento.md
+Seção   : Item 41 — "Qual a diferença entre SLA de resposta e SLA de resolução?"
+Distância: 0.9024
+Texto:
+### Item 41 — "Qual a diferença entre SLA de resposta e SLA de resolução?"
+Resposta é quando a gente dá o primeiro retorno ao cliente (mesmo que seja 'estamos verificando'). Resolução é quando o problema é efetivamente resolvido. O Gold tem 2h de resposta e 24h de resolução. Silver é 4h e 48h. Standard é 8h e 72h. Para incidentes críticos, os prazos são menores — veja a tabela SLA-2024.
+
+--- Resultado 3 ---
+Arquivo : FAQ-atendimento.md
+Seção   : Item 15 — "Cliente diz que é Platinum. Existe esse tier?"
+Distância: 0.9149
+Texto:
+### Item 15 — "Cliente diz que é Platinum. Existe esse tier?"
+Não existe tier Platinum na NovaTech. Às vezes o cliente confunde com outra transportadora ou com o programa de fidelidade antigo que foi descontinuado em 2022. Oriente que nossos tiers são Gold, Silver e Standard e peça o número do contrato para verificar.

@@ -1,0 +1,18 @@
+Resposta 1 — "Qual o prazo de devolução para carga perigosa?"
+
+Correta? Sim. Manteve o acerto do v1.
+Melhoria em relação ao v1: O ⚠️ ficou mais preciso — agora explica que a exceção é "absoluta, sem condições especiais", o que é mais informativo para o atendente do que simplesmente dizer que não há procedimento alternativo.
+Respeitou guardrails? Sim.
+Resposta 2 — "Meu cliente é Gold, qual o SLA de resolução?"
+
+Correta? Sim.
+Melhoria em relação ao v1: A informação adicional sobre o SLA de resposta (2h) agora aparece formalmente como ℹ️ Complemento, com a ressalva "caso essa informação seja útil no atendimento" — exatamente como foi especificado. O comportamento que antes era espontâneo agora é explícito e justificado.
+Respeitou guardrails? Sim.
+Resposta 3 — "Quanto custa o frete para 600kg para Manaus?"
+
+Correta? Sim, e é a resposta com maior melhoria visível.
+Melhoria em relação ao v1: Em vez de apenas dizer "não é possível calcular sem o valor base", o v2 detalhou os passos que o atendente deve seguir antes de responder ao cliente (verificar tabela → aplicar fórmula → informar o valor). Isso é direto resultado da nova regra 4 de informação parcial.
+Respeitou guardrails? Sim — não inventou o valor base, orientou para o setor correto (comercial).
+
+
+Foi identificada uma melhoria na formalização do uso do complemento, que agora está definido na estrutura padrão.

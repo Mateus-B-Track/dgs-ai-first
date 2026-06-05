@@ -1,0 +1,50 @@
+Durante o desenvolvimento do projeto,
+foram debatidas diferentes formas de dividir os chunks, e a escolhida no final
+foi a de dividir de acordo com os próprios headers dos 5 documentos,
+usando os ## e ### como limitadores, para que cada seção virasse um chunk, mantendo
+seu título no início do chunk.
+
+Para segurança, foi mantido o overlap de ~1 parágrafo entre chunks adjacentes,
+evitando que informações em fronteiras de seção fossem perdidas caso um procedimento
+ou regra se estendesse além do limite do header.
+
+Para esse exercício, essa pareceu a melhor solução pelos seguintes motivos:
+
+- As perguntas dos atendentes são majoritariamente diretas (ex: "qual o SLA do
+  cliente Gold?"), e cada seção dos documentos corresponde a um tema específico.
+  Com isso, cada chunk representa uma unidade de significado completa, aumentando
+  a precisão semântica do retrieval.
+
+- Por produzir chunks menores e mais precisos, menos chunks precisam ser enviados
+  ao LLM por query. Isso reduz o risco do efeito 'lost in the middle' — fenômeno
+  em que o modelo presta menos atenção a informações posicionadas no meio de um
+  contexto longo. Quanto menos chunks no contexto, menor a zona de baixa atenção.
+
+- A estrutura dos 5 documentos markdown é bem definida e consistente, o que torna
+  a segmentação por header confiável e previsível para esse conjunto de dados.
+
+
+Para um projeto maior e escalável, como o pipeline de produção da NovaTech com
+~1.250 fontes heterogêneas, é sugerida uma abordagem de chunking hierárquico com
+overlap adaptativo. Nessa abordagem:
+
+- A segmentação semântica primária usaria a estrutura natural de cada tipo de
+  documento (headers, quebras de tabela, separadores de procedimento) como
+  fronteiras, não tamanho fixo em tokens.
+
+- O overlap seria dinâmico (10-15%), repetindo as últimas 2-3 frases do chunk
+  anterior no início do próximo, eliminando perdas sistemáticas em fronteiras.
+
+- Seriam criados parent-child chunks: o chunk filho (menor, ~200 tokens) seria
+  indexado para retrieval vetorial com maior precisão semântica; o chunk pai
+  (maior, ~500-800 tokens) seria retornado ao LLM na geração, fornecendo contexto
+  suficiente para respostas completas.
+
+- Metadados obrigatórios por chunk (nome do documento, data de atualização,
+  versão, área responsável) habilitariam filtros de retrieval e o tratamento
+  correto de documentos contraditórios entre versões.
+
+Com isso, a complexidade de implementação aumentaria significativamente — exigindo
+múltiplos componentes coordenados — mas a precisão e a robustez do pipeline
+justificam esse investimento em escala de produção. Para o PoC com 5 documentos,
+a abordagem por seção demonstra o conceito com a complexidade adequada ao escopo. 

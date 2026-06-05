@@ -1,0 +1,19 @@
+Não encontrei esta informação na documentação disponível. Os chunks recuperados confirmam que a PROC-042 rege o frete especial para cargas acima de 500kg, mas nenhum chunk fornecido contém a fórmula de cálculo, os multiplicadores regionais ou os valores específicos para a região de Manaus.
+
+Fonte: PROC-042-v2-frete-especial-revisado.md, Seção 1 (versão mais recente)
+Trecho relevante: "Definir a fórmula e os parâmetros atualizados para cálculo de frete especial aplicável a cargas com peso acima de 500kg. Os multiplicadores foram revisados para refletir os custos operacionais atualizados de cada região."
+
+⚠️ Atenção:
+
+Dado ausente: A fórmula de cálculo e o multiplicador regional de Manaus não estão presentes nos chunks disponíveis nesta consulta. Consulte a PROC-042-v2-frete-especial-revisado.md na íntegra (especialmente as seções de fórmula e tabela regional) antes de repassar qualquer valor ao cliente.
+Conflito de versões identificado: Existem duas versões do documento em circulação — PROC-042-frete-especial-v1.md e PROC-042-v2-frete-especial-revisado.md. A versão v2 é mais recente e deve ser utilizada como referência.
+
+
+ℹ️ Complemento:
+Para esta carga de 600kg, as seguintes informações da v2 já são aplicáveis e podem ser úteis:
+
+Por estar acima de 500kg, a carga se enquadra no regime de frete especial (PROC-042-v2, Seção 1).
+Por estar abaixo de 5.000kg, não exige aprovação prévia do gerente de operações regional (PROC-042-v2, Seção 4).
+Se a carga for perigosa, deve ser encaminhada para a tabela da PROC-043 — atenção: essa norma está em processo de revisão pelo Compliance e pode estar desatualizada.
+
+Recomendação: Acesse a PROC-042-v2 completa para obter a fórmula e o multiplicador regional de Manaus, ou escale para o supervisor caso o documento não esteja acessível.

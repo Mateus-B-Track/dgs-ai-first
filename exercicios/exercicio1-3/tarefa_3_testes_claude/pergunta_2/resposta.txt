@@ -1,0 +1,7 @@
+Não — cargas perigosas classificadas nas classes 1 a 6 da ANTT não são elegíveis para devolução pelo processo padrão. O cliente deve ser encaminhado ao setor de Gestão de Riscos para tratamento individual.
+
+Fonte: POL-001-politica-devolucao.md, seção 3.2 — Exceções ao prazo geral
+Trecho relevante: "Cargas perigosas classificadas nas classes 1 a 6 da ANTT (Agência Nacional de Transportes Terrestres), conforme Resolução ANTT nº 5.947/2021 [...] Para essas categorias, o cliente deve entrar em contato com o setor de Gestão de Riscos (ramal 4500) para tratamento individual."
+
+ℹ️ Complemento: As classes 1 a 6 abrangem: explosivos (classe 1), gases (classe 2), líquidos inflamáveis (classe 3), sólidos inflamáveis (classe 4), oxidantes e peróxidos (classe 5) e substâncias tóxicas e infectantes (classe 6). Caso o atendente precise confirmar em qual classe a carga do cliente se enquadra, essa classificação pode ser verificada na documentação de transporte (nota fiscal ou MOPP).
+Orientação ao atendente: Encaminhe o cliente diretamente ao ramal 4500 — Gestão de Riscos para que o caso seja tratado individualmente.Sonnet 4.6 Médio

@@ -1,0 +1,31 @@
+## DOCUMENTAÇÃO RECUPERADA
+
+--- Chunk 1 | Arquivo: FAQ-atendimento.md | Seção: Item 22 — "Cliente quer saber sobre seguro de carga. O que falar?" ---
+### Item 22 — "Cliente quer saber sobre seguro de carga. O que falar?"
+A NovaTech oferece seguro de carga como adicional. O valor é 0,3% do valor declarado da mercadoria para cargas padrão e 0,8% para cargas perigosas. Detalhe: isso vale para contratos a partir de 2023. Contratos mais antigos podem ter percentuais diferentes — confirme com o Comercial.
+
+--- Chunk 2 | Arquivo: PROC-042-frete-especial-v1.md | Seção: 4. Condições especiais ---
+## 4. Condições especiais
+
+- Cargas acima de 5.000kg requerem aprovação prévia do gerente de operações regional.
+- Cargas perigosas com peso acima de 500kg seguem tabela específica (PROC-043: Frete de Cargas Perigosas).
+- Descontos de volume (mais de 10 fretes especiais/mês para o mesmo cliente) devem ser negociados pelo Comercial e registrados em aditivo contratual.
+
+--- Chunk 3 | Arquivo: POL-001-politica-devolucao.md | Seção: 3.2. Exceções ao prazo geral ---
+### 3.2. Exceções ao prazo geral
+
+As seguintes categorias de carga NÃO são elegíveis para devolução pelo processo padrão:
+
+- Cargas perigosas classificadas nas classes 1 a 6 da ANTT (Agência Nacional de Transportes Terrestres), conforme Resolução ANTT nº 5.947/2021. Inclui: explosivos (classe 1), gases (classe 2), líquidos inflamáveis (classe 3), sólidos inflamáveis (classe 4), oxidantes e peróxidos (classe 5), substâncias tóxicas e infectantes (classe 6).
+- Cargas refrigeradas que tenham rompido a cadeia de frio (temperatura fora da faixa especificada na nota fiscal por mais de 30 minutos contínuos, conforme registro do sensor IoT).
+- Cargas com lacre de segurança violado, salvo quando a violação for documentada no ato de entrega com assinatura do motorista e do recebedor.
+
+Para essas categorias, o cliente deve entrar em contato com o setor de Gestão de Riscos (ramal 4500) para tratamento individual.
+
+## PERGUNTA DO ATENDENTE
+
+Cargas perigosas podem ser devolvidas?
+============================================================
+
+Total de caracteres: 4639
+Estimativa de tokens: ~1159     
