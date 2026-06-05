@@ -1,0 +1,197 @@
+
+<h2 class="sr-only">Avaliação do Exercício 1.1 — Desenvolvedor — Análise de Viabilidade Técnica RAG</h2>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.container { padding: 1.5rem 0; }
+.header { margin-bottom: 1.5rem; }
+.tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; background: var(--color-background-info); color: var(--color-text-info); margin-bottom: 0.75rem; letter-spacing: 0.03em; }
+.title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.subtitle { font-size: 13px; color: var(--color-text-secondary); }
+
+.summary-card { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1.5rem; border-left: 3px solid #639922; }
+.summary-text { font-size: 14px; color: var(--color-text-primary); line-height: 1.6; }
+
+.score-hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+.score-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem; text-align: center; }
+.score-card.total { border: 2px solid var(--color-border-info); }
+.score-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+.score-value { font-size: 26px; font-weight: 500; }
+.score-value.s3 { color: #3B6D11; }
+.score-value.s2 { color: #BA7517; }
+.score-value.total-val { color: var(--color-text-info); }
+.score-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 3px; }
+
+.classification { display: flex; align-items: center; gap: 10px; padding: 0.875rem 1.25rem; background: var(--color-background-success); border-radius: var(--border-radius-lg); margin-bottom: 1.5rem; }
+.classification-badge { font-size: 13px; font-weight: 500; color: var(--color-text-success); }
+.classification-score { font-size: 13px; color: var(--color-text-success); opacity: 0.8; }
+
+.section-title { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+
+.dimensions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.5rem; }
+.dim-row { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+.dim-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.dim-name { font-size: 14px; font-weight: 500; color: var(--color-text-primary); flex: 1; }
+.dim-badge { font-size: 13px; font-weight: 500; padding: 2px 10px; border-radius: 20px; }
+.dim-badge.s3 { background: #EAF3DE; color: #3B6D11; }
+.dim-badge.s2 { background: #FAEEDA; color: #854F0B; }
+.dim-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+
+.bar-wrap { height: 4px; background: var(--color-border-tertiary); border-radius: 2px; margin: 8px 0; }
+.bar-fill { height: 4px; border-radius: 2px; }
+.bar-fill.s3 { background: #639922; width: 100%; }
+.bar-fill.s2 { background: #EF9F27; width: 66%; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+.list-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+.list-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--color-text-primary); line-height: 1.55; padding: 5px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.list-item:last-child { border-bottom: none; }
+.dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.dot.green { background: #639922; }
+.dot.amber { background: #EF9F27; }
+
+.trap-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
+.trap-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 13px; }
+.trap-item:last-child { border-bottom: none; }
+.trap-label { flex: 1; color: var(--color-text-primary); line-height: 1.5; }
+.trap-status { font-size: 12px; font-weight: 500; padding: 2px 10px; border-radius: 20px; white-space: nowrap; }
+.trap-status.na { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+
+.reinforce-card { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+.reinforce-item { font-size: 13px; color: var(--color-text-secondary); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+.reinforce-item i { font-size: 15px; color: var(--color-text-secondary); }
+</style>
+
+<div class="container">
+
+  <div class="header">
+    <div class="tag">Desenvolvedor · Cenário 1 · Exercício 1.1</div>
+    <div class="title">Avaliação — Análise de viabilidade técnica com fundamentos de LLM e engenharia de contexto</div>
+    <div class="subtitle">Programa: Trilha de Certificação AI First — DGS / DB1 Global Software</div>
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-text">Entregável de alto nível técnico que supera amplamente o esperado para o exercício. O participante produziu análise profunda, específica ao domínio NovaTech, com estimativas apresentadas como ranges com justificativa metodológica explícita — sinal claro de pensamento crítico. A iteração v1→v2 está documentada com nota explicativa detalhando o que foi corrigido, evidenciando o ciclo gerar→avaliar→iterar. O entregável é imediatamente acionável por qualquer membro do time sem necessidade de esclarecimentos.</div>
+  </div>
+
+  <div class="score-hero">
+    <div class="score-card">
+      <div class="score-label">D1 Conceitual</div>
+      <div class="score-value s3">3</div>
+      <div class="score-sub">Distinção</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">D2 Ferramentas</div>
+      <div class="score-value s3">3</div>
+      <div class="score-sub">Distinção</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">D3 Entregável</div>
+      <div class="score-value s3">3</div>
+      <div class="score-sub">Distinção</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">D4 Crítico</div>
+      <div class="score-value s3">3</div>
+      <div class="score-sub">Distinção</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">D5 Aplicação</div>
+      <div class="score-value s3">3</div>
+      <div class="score-sub">Distinção</div>
+    </div>
+    <div class="score-card total">
+      <div class="score-label">Score final</div>
+      <div class="score-value total-val">3,0</div>
+      <div class="score-sub">Média</div>
+    </div>
+  </div>
+
+  <div class="classification">
+    <i class="ti ti-rosette-discount-check" style="font-size:20px; color: var(--color-text-success);" aria-hidden="true"></i>
+    <div class="classification-badge">Aprovado com distinção</div>
+    <div class="classification-score">Score: 3,0 · Faixa: 2,5–3,0</div>
+  </div>
+
+  <div class="section-title">Scores por dimensão</div>
+  <div class="dimensions">
+
+    <div class="dim-row">
+      <div class="dim-header">
+        <div class="dim-name">D1 — Domínio Conceitual</div>
+        <div class="dim-badge s3">3 / 3</div>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill s3"></div></div>
+      <div class="dim-text">Domínio profundo e nuançado em todos os tópicos. Tokens/context window: cálculo detalhado com cenários otimistas e pessimistas, multiplicador de serialização explicado com exemplo concreto (tabela 15 col × 200 linhas = 26× o texto linear). Lost in the middle: corretamente identificado e aplicado à recomendação de 20–25 chunks (não apenas citado como conceito). RAG: desafios distintos por tipo de fonte, não tratamento genérico. Identifica corretamente que "mais contexto não é melhor" — contraintuitivo e não-óbvio para iniciantes.</div>
+    </div>
+
+    <div class="dim-row">
+      <div class="dim-header">
+        <div class="dim-name">D2 — Uso de Ferramentas</div>
+        <div class="dim-badge s3">3 / 3</div>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill s3"></div></div>
+      <div class="dim-text">Iteração v1→v2 documentada explicitamente: a nota no início da v2.0 lista 5 categorias concretas de melhorias incorporadas (estimativas com falsa precisão, riscos organizacionais ausentes, meta de acurácia requalificada, limitações do MVP, governança, integração Teams, dimensionamento fila OCR). As mudanças são estruturais e verificáveis — não cosméticas. O ciclo gerar→avaliar→iterar é visível e substancial.</div>
+    </div>
+
+    <div class="dim-row">
+      <div class="dim-header">
+        <div class="dim-name">D3 — Qualidade do Entregável</div>
+        <div class="dim-badge s3">3 / 3</div>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill s3"></div></div>
+      <div class="dim-text">Completo, correto e diretamente acionável. Cobre todos os pontos do enunciado e vai além: seções de governança de dados, integração Teams, síntese executiva com riscos priorizados. Tabelas de risco com probabilidade e impacto. Limitações explícitas do MVP. Recomendação de cronograma com percentuais por fase. Outro engenheiro poderia usar como base para a proposta técnica sem pedir esclarecimentos.</div>
+    </div>
+
+    <div class="dim-row">
+      <div class="dim-header">
+        <div class="dim-name">D4 — Pensamento Crítico</div>
+        <div class="dim-badge s3">3 / 3</div>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill s3"></div></div>
+      <div class="dim-text">Múltiplos exemplos de análise não-óbvia e autônoma. Identifica que "versão mais recente ≠ versão correta" — uma armadilha lógica que sistemas RAG tipicamente ignoram. Contesta a meta de acurácia > 85% da v1 como "vaga e otimista demais" e propõe 65–75% com golden dataset. Quantifica o risco do multiplicador de serialização (26×) que a maioria ignora. Reconhece que query decomposition tem custo de latência que pode ser inaceitável em call center — não aceita a técnica acriticamente.</div>
+    </div>
+
+    <div class="dim-row">
+      <div class="dim-header">
+        <div class="dim-name">D5 — Aplicabilidade ao Projeto</div>
+        <div class="dim-badge s3">3 / 3</div>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill s3"></div></div>
+      <div class="dim-text">Profundamente enraizado no contexto NovaTech. Referencia dados específicos do enunciado: 320 chamados/dia, 192 com consulta documental, 45 atendentes, 12 min por chamado, 3 áreas responsáveis, Microsoft 365 E3, Azure. Exemplos de perguntas com dados da NovaTech ("qual o frete para 8kg, destino Sul?"). Análise de adoção com projeção temporal realista (semanas 1–4 vs. meses 2–3).</div>
+    </div>
+
+  </div>
+
+  <div class="section-title">Verificação de armadilhas</div>
+  <div class="trap-card">
+    <div class="trap-item">
+      <i class="ti ti-info-circle" style="font-size:16px; color: var(--color-text-secondary); margin-top:1px;" aria-hidden="true"></i>
+      <div class="trap-label">Exercício 1.1 não possui armadilha intencional definida na skill do papel (armadilha obrigatória está no exercício 1.2 — pergunta sobre prazo de devolução para carga perigosa / POL-001).</div>
+      <div class="trap-status na">N/A</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="list-card">
+      <div class="section-title">Pontos fortes</div>
+      <div class="list-item"><div class="dot green"></div><div>Estimativas como ranges com justificativa metodológica explícita — elimina falsa precisão e demonstra maturidade técnica além do esperado no exercício</div></div>
+      <div class="list-item"><div class="dot green"></div><div>Multiplicador de serialização de tabelas quantificado (fator 26×) — insight técnico não-óbvio que afeta diretamente o dimensionamento de infraestrutura</div></div>
+      <div class="list-item"><div class="dot green"></div><div>Seções sobre riscos organizacionais, governança de dados e integração Teams mostram visão de engenharia de sistemas, não apenas de pipeline de ML</div></div>
+      <div class="list-item"><div class="dot green"></div><div>Limitações explícitas do MVP — postura de engenharia responsável que raramente aparece neste nível de exercício</div></div>
+    </div>
+    <div class="list-card">
+      <div class="section-title">Pontos de melhoria</div>
+      <div class="list-item"><div class="dot amber"></div><div>A estratégia de chunking hierárquico pai–filho é recomendada mas não há estimativa do impacto no custo de embedding — útil quantificar (ex: +X% de tokens na ingestão inicial)</div></div>
+      <div class="list-item"><div class="dot amber"></div><div>Histórico de iteração com o Claude não está anexado ao documento — enunciado pede explicitamente o histórico de interação, não apenas a nota sobre o que mudou</div></div>
+      <div class="list-item"><div class="dot amber"></div><div>A seção de perguntas multi-domínio menciona necessidade de classificador, mas não estima o esforço de desenvolvimento separadamente do resto do pipeline</div></div>
+    </div>
+  </div>
+
+  <div class="section-title">Tópicos para reforço</div>
+  <div class="reinforce-card">
+    <div class="reinforce-item"><i class="ti ti-circle-check" aria-hidden="true"></i>Score 3,0 — nenhum tópico da trilha requer reforço neste exercício. Recomenda-se aplicar o mesmo rigor de estimativas em ranges e análise de custos nos exercícios 1.2 e 1.3.</div>
+  </div>
+
+</div>
