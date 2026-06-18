@@ -1,0 +1,40 @@
+Crie o conteúdo completo do SKILL.md para a skill Foundation "typescript-conventions" do projeto NovaTech Assistant.
+
+Contexto do projeto:
+- TypeScript com strict mode habilitado
+- Azure Functions v4 (HTTP triggers)
+- Zod para validação de input/output
+- pino para logging (NUNCA console.log)
+- Vitest para testes
+- Conventional Commits
+- Imports com path aliases (@/ para src/)
+
+O SKILL.md deve conter:
+
+1. **Contexto** — quando esta skill se aplica (toda geração de código TypeScript no projeto)
+
+2. **Regras prescritivas** — lista de DEVE/NÃO DEVE com exemplos:
+   - Strict mode: noUncheckedIndexedAccess, strictNullChecks
+   - Naming: camelCase para variáveis/funções, PascalCase para tipos/interfaces
+   - Imports: named imports, nunca import *, barrel exports apenas em shared/
+   - Types: preferir interfaces sobre type aliases para objetos; usar Zod schemas como source of truth e inferir tipos com z.infer<>
+   - Funções: preferir arrow functions para handlers; early return pattern
+   - Async: sempre tratar erros com try/catch tipado ou Result pattern
+   - Exports: cada módulo exporta apenas o necessário (nenhum export default)
+
+3. **Exemplos DO/DON'T** — código real mostrando o certo e o errado:
+   - DO: validação com Zod + tipo inferido
+   - DON'T: tipo manual que diverge do schema de validação
+   - DO: logger com pino e contexto estruturado
+   - DON'T: console.log com string concatenada
+   - DO: error customizado que estende base AppError
+   - DON'T: throw new Error("algo deu errado") genérico
+
+4. **Anti-padrões** — coisas que o Copilot geraria de errado sem guidance:
+   - Gerar `any` quando não infere o tipo → correção: usar unknown + narrowing
+   - Usar console.log → correção: importar logger de shared/logger
+   - Gerar export default → correção: named exports sempre
+   - Duplicar tipos que já existem no Zod schema → correção: usar z.infer<typeof schema>
+   - Imports relativos profundos (../../..) → correção: usar path alias @/
+
+5. **Dependências** — este skill é base para todas as skills Domain e Artifact

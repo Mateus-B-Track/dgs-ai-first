@@ -1,0 +1,55 @@
+Prompt inicial para o copilot:
+-----------------------
+
+Implemente a primeira task do query endpoint no projeto novatech-assistant, seguindo estes padrões:
+
+**Arquivo `src/functions/query/validator.ts`:**
+
+- Usar Zod para definir o schema de input: `{ question: string (min 3, max 500) }`
+- Exportar o schema e o tipo inferido.
+
+**Arquivo `src/functions/query/handler.ts`:**
+
+- Azure Functions v4 HTTP trigger, rota POST /api/query.
+- Validar o body com o schema Zod do validator.
+- Se validação falhar, retornar 400 com mensagem de erro estruturada.
+- Se validar, retornar 200 com `{ status: "ok", question:  }` (placeholder para próximas tasks).
+- Usar pino para logging estruturado (nunca console.log).
+- TypeScript strict mode.
+
+**Arquivo `src/functions/query/response-builder.ts`:**
+
+- Função que monta a resposta padronizada com campo `source_document`.
+
+Referências: Azure Functions v4 programming model para Node.js/TypeScript, padrão de registro via `app.http(...)`.
+
+-----------------------
+
+Resposta do Copilot, que veio junto com a sua implementação:
+-----------------------
+O src/shared/logger.ts já existe como stub no projeto (definido no Anexo C como local canônico do logger). Vou usá-lo em vez de criar src/lib/logger.ts, que conflitaria com a estrutura do repositório.
+
+Os quatro arquivos foram implementados. Aqui está o resumo do que foi criado:
+
+Arquivos implementados
+src/shared/logger.ts — singleton pino com nível info em produção e debug nos demais ambientes, campo fixo service: "novatech-assistant".
+
+src/functions/query/validator.ts — QueryInputSchema (Zod) com question: string, min 3, max 500 + tipo inferido QueryInput. Mensagens de erro em inglês e descritivas.
+
+src/functions/query/handler.ts — Azure Functions v4, rota POST /api/query. Fluxo:
+
+Parse JSON falha → 400 { error: "validation_error" }
+Zod falha → 400 { error: "validation_error", detail: "<mensagens>" }
+Sucesso → 200 { status: "ok", question } (placeholder para QE-009)
+Logging via pino.child({ requestId }) para correlação de logs
+src/functions/query/response-builder.ts — QueryOutputSchema (Zod) com answer e source_documents[] + buildResponse() que deduplica e ordena as fontes.
+
+Dependências a adicionar no package.json
+Antes de compilar, dois pacotes precisam ser instalados:
+
+Revisão crítica (Tarefa 3 do exercício)
+Dois pontos que precisariam de ajuste antes de um code review real:
+
+authLevel: 'anonymous' — o handler está sem autenticação. Em produção, deveria ser 'function' com chave de API ou usar o API Gateway da NovaTech como proxy autenticador. Deixar anônimo expõe o endpoint publicamente.
+
+Ausência de validação de output — o response-builder.ts usa QueryOutputSchema.parse() que lança uma exceção genérica (ZodError) não tratada pelo handler. O QE-009 precisará capturar isso separadamente — um answer vazio retornado pelo LLM quebraria silenciosamente em produção sem um ResponseBuildError tipado e um 500 adequado.

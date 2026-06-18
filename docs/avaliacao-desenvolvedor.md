@@ -1,56 +1,52 @@
-# Skill de Avaliação — Desenvolvedor (Cenário 1)
+# Skill de Avaliação — Desenvolvedor (Cenário 2)
 
 > **Programa:** Trilha de Certificação AI First — DGS / DB1 Global Software
-> **Escopo:** Cenário-Âncora 1 — Fase de Entendimento e Contexto (exercícios 1.1, 1.2, 1.3)
+> **Escopo:** Cenário-Âncora 2 — Fase de Estruturação do Trabalho (exercícios 2.1, 2.2, 2.3)
 > **Referência:** Usar com `avaliacao-foundation.md` para dimensões e escala.
 
-**Perfil:** Opera na camada de implementação — análise técnica, prototipação, código, construção de pipelines. Usa IA como ferramenta de desenvolvimento (Copilot) mantendo julgamento técnico próprio. Entende RAG como sistema de engenharia de dados.
+**Perfil:** Configura a infraestrutura de agentes (MCP), implementa specs com SDD, e define a estratégia de skills. Usa Copilot como ferramenta de implementação mantendo julgamento próprio.
 
-**Ferramentas esperadas:** Claude (chat) em todos; GitHub Copilot nos exercícios 1.2 (não) e 1.3 (sim).
-
----
-
-## Exercício 1.1 — Análise de viabilidade técnica com fundamentos de LLM e engenharia de contexto
-
-**Tópicos avaliados:** Fundamentos de IA (tokens, context window), Engenharia de Contexto (orçamento de atenção, lost in the middle), RAG (desafios de extração).
-
-| Critério | Score 3 | Red flag (≤ 1) |
-|----------|---------|-----------------|
-| Desafios por tipo de fonte | Cada tipo (PDFs tabelas, escaneados, wiki, planilhas) com desafio + estratégia específicos | "Converter tudo para texto" |
-| Estimativa de tokens razoável | Cálculo mostra trabalho. Total na ordem de 8-15M tokens é razoável | Número sem cálculo, ou erro grosseiro |
-| Orçamento de contexto | Calcula quantos chunks cabem (128K - ~2K system ≈ 126K úteis). Justifica número de chunks por query (5-10 é prático) | Sem análise, ou "usar todo o contexto" |
-| Chunking justificado | Considera tipo de pergunta + lost in the middle + formato dos documentos | "512 tokens fixos" sem motivo |
-| Iteração com Claude | Claude identificou pontos fracos; Dev incorporou | Sem iteração |
+**Ferramentas esperadas:** Claude (chat) em todos; GitHub Copilot nos exercícios 2.1 (agente com os MCP servers ativos), 2.2 e 2.3.
 
 ---
 
-## Exercício 1.2 — Prototipação de prompt com engenharia de contexto
+## Exercício 2.1 — Configuração de MCP servers
 
-**Tópicos avaliados:** Engenharia de Prompt (system prompt), Engenharia de Contexto (estático vs dinâmico, anatomia do contexto).
+**Tópicos avaliados:** MCP (servers, tools, resources, permissões).
 
 | Critério | Score 3 | Red flag (≤ 1) |
 |----------|---------|-----------------|
-| System prompt específico | Identidade + regras + formato + instruções para chunks. Não genérico | "Você é um assistente útil" |
-| Mapeamento estático/dinâmico | Estático (system prompt, guardrails) vs dinâmico (chunks, pergunta, tier, histórico). Com estimativa de tokens | Apenas "o prompt" sem decomposição |
-| 3 perguntas testadas | Resultados reais documentados com evidência | Respostas inventadas |
-| Iteração v1 → v2 | Melhoria concreta e verificável entre versões | V1 = V2 |
-
-**Armadilha obrigatória:** Pergunta "prazo de devolução para carga perigosa" → resposta correta é "NÃO é elegível para devolução" (POL-001, seção 3.2). Se o system prompt v1 gera resposta errada e o Dev não identifica como falha → D4 ≤ 1.
+| Mapeamento necessidade → server local | Cada necessidade (código/specs/skills, docs de negócio, corpus de retrieval, histórico, memória) mapeada a um *reference server* local e gratuito (filesystem, git, memory, everything), com tools/resources e escopo | Usa servers pagos/externos (Azure, Confluence, GitHub remoto); < 3 servers; ou sem distinção tools/resources |
+| Least privilege concreto | filesystem com escopo mínimo de pastas; `docs/novatech/` e `data/retrieval-corpus/` como read-only; justificativa por server | Escopo amplo demais; fontes de negócio com escrita; sem justificativa |
+| Evidência de uso real | Servers no ar: o agente lê um doc de `docs/novatech/`, recupera um chunk de `data/retrieval-corpus/` (coerente com o mapa do Anexo B) e lê o histórico via git | Só o arquivo de config, sem evidência de execução |
+| Riscos de segurança do setup local | Ex: filesystem com escopo amplo expõe `.env`/segredos; server com escrita deixa o agente alterar arquivos sem revisão | "Alguém pode hackear" |
+| `.mcp/mcp.json` válido e coerente | Sintaticamente correto, coerente com o mapeamento/escopos, partindo do exemplo do Anexo C | Ausente, com erros, ou inconsistente com o mapeamento |
 
 ---
 
-## Exercício 1.3 — Construção de pipeline de RAG com ferramentas open-source
+## Exercício 2.2 — Implementação com SDD (plan → tasks → código)
 
-**Tópicos avaliados:** RAG (pipeline completo: ingestão, embedding, retrieval), Engenharia de Contexto (chunks como unidade de contexto).
-
-**Exercício mais pesado da trilha. Peso maior em D3 (código funcional).**
+**Tópicos avaliados:** SDD (decomposição em tasks atômicas), Skills (padrões de código).
 
 | Critério | Score 3 | Red flag (≤ 1) |
 |----------|---------|-----------------|
-| Pipeline funcional | Código roda: ingere documentos, gera embeddings, busca por similaridade, retorna chunks | Não roda, ou pseudocódigo |
-| Chunking justificado | Explica tamanho/overlap escolhidos. Tabelas não cortadas | Chunking fixo sem justificativa |
-| 5 testes com gabarito | Pergunta → chunks recuperados → comparação com Anexo B. Ao menos 3/5 corretos | < 3 testes, ou sem comparação |
-| 2+ problemas reais | Derivados dos testes (chunk errado, tabela cortada, versões misturadas) | Problemas inventados |
-| Copilot evidenciado | Prompts/completions do Copilot na geração do código | Sem evidência |
+| Tasks atômicas | Cada task implementável e testável isoladamente. ID, dependências, critérios de aceite | Tasks grandes e interdependentes |
+| Critérios de aceite verificáveis | "Endpoint retorna 400 para body sem campo question" | "Endpoint funciona" |
+| Código segue padrões do plan | TypeScript, Zod, Azure Functions v4, pino, conforme definido | JavaScript, sem validação, console.log |
+| Código segue Anexo C | Arquivo no path correto (`/src/functions/query/`) | Path inventado |
+| Revisão crítica real | 2+ problemas reais no código do Copilot (não inventados) | Problemas cosméticos inventados |
+| Conecta com cenário 1 | Reconhece que protótipo open-source (Dev 1.3) validou a abordagem; agora é produção | Ignora o trabalho anterior |
 
-**Sobre stack:** Qualquer stack free é aceitável (ChromaDB, FAISS, Qdrant, Ollama). Se usou LangChain sem entender o que está abstraído → D1 ≤ 2.
+---
+
+## Exercício 2.3 — Estratégia de skills do projeto
+
+**Tópicos avaliados:** Skills (hierarquia Foundation → Domain → Artifact), AGENTS.md (como skills se conectam).
+
+| Critério | Score 3 | Red flag (≤ 1) |
+|----------|---------|-----------------|
+| Árvore coerente com projeto | Skills que o projeto realmente usaria (RAG endpoint, integration test, React card) | Skills teóricas que ninguém consumiria |
+| Criação/consumo multi-papel | PS cria skill de spec, QA cria skill de teste, não é só para devs | Tudo criado e consumido por devs |
+| SKILL.md Foundation concreto | Exemplos de código TypeScript reais (DO/DON'T), anti-padrões que Copilot geraria | Texto abstrato sem código |
+| Anti-padrões úteis | Coisas que LLMs realmente geram errado: `as any`, `console.log`, require dinâmico | Anti-padrões genéricos |
+| Referencia Anexo C | Skills na hierarquia `/skills/foundation/`, `/skills/domain/`, `/skills/artifact/` | Estrutura inventada |

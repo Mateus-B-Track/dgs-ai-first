@@ -1,0 +1,24 @@
+Sou desenvolvedor no projeto NovaTech Assistant. O projeto usa TypeScript, Azure Functions v4, Azure AI Search, React (painel web), Vitest, pino (logging), e Zod (validação).
+
+Os artefatos produzidos repetidamente no projeto são:
+- Endpoints Azure Functions com padrão RAG
+- Testes de integração para endpoints
+- Componentes React para o painel web (cards de resposta, formulários de feedback)
+- Documentação técnica de endpoints (ADRs, README de módulos)
+- Specs de produto (seguindo template SDD)
+
+O time é: 1 Tech Lead, 2 Devs, 1 QA, 1 Product Specialist, 1 Delivery Manager.
+
+Skills seguem a hierarquia:
+- Foundation: convenções globais (error handling, logging, TypeScript conventions, project structure)
+- Domain: padrões por camada (como endpoints são estruturados, como testes são escritos, como componentes React são organizados)
+- Artifact: receitas de geração específicas (criar endpoint RAG, criar teste de integração, criar componente React card)
+
+Para cada skill, defina:
+1. Nome (slug do arquivo, ex: error-handling)
+2. Descrição / frase-ativação (que um agente reconheceria para invocar a skill)
+3. Quem cria (qual papel do time)
+4. Quem consome (qual papel + quais agentes: Copilot, Claude)
+5. Frequência de uso estimada (alta/média/baixa)
+
+Monte a árvore completa em formato de tabela ou lista estruturada.

@@ -13,3 +13,12 @@ Resposta 3 — "Quanto custa o frete para 600kg para Manaus?"
 Correta? Parcialmente correta — o multiplicador 1.8 para Região Norte está certo. O assistente identificou corretamente que o valor base não está nos chunks e não o inventou. Isso é exatamente o guardrail 2 funcionando.
 Citou fonte? Sim.
 Respeitou guardrails? Sim — recomendou consultar o sistema de tarifação.
+
+
+Conclusões:
+Todos os guardarils foram respeitados, respeitando o fluxo de resposta -> fonte -> trecho -> Atenção
+
+Possíveis melhorias:
+Formalizar o comportamento de "informação parcial" — a resposta 3 tratou bem o caso de chunk com informação incompleta, mas isso aconteceu por inferência do modelo, não por instrução explícita. Adicione uma regra como: "Quando os chunks contiverem parte da informação necessária mas não o suficiente para uma resposta completa (ex: multiplicador sem valor base), forneça o que está disponível, indique o que está faltando, e recomende onde obter o dado ausente."
+
+Definir se o assistente deve ou não oferecer informações não solicitadas — na resposta 2, ele adicionou o SLA de resposta (2h) mesmo sendo perguntado apenas sobre resolução (24h). Decida se isso é comportamento desejado e torne explícito no prompt.
